@@ -10,12 +10,15 @@ package Solutions
 // C             100
 // D             500
 // M             1000
-// For example, 2 is written as II in Roman numeral, just two ones added together. 12 is written as XII, which is simply X + II. The number 27 is written as XXVII, which is XX + V + II.
+// For example, 2 is written as II in Roman numeral, just two ones added together.
+// 12 is written as XII, which is simply X + II. The number 27 is written as XXVII, which is XX + V + II.
 
-// Roman numerals are usually written largest to smallest from left to right. However, the numeral for four is not IIII. Instead, the number four is written as IV. Because the one is before the five we subtract it making four. The same principle applies to the number nine, which is written as IX. There are six instances where subtraction is used:
+// Roman numerals are usually written largest to smallest from left to right. However, the numeral for four is not IIII.
+// Instead, the number four is written as IV. Because the one is before the five we subtract it making four.
+// The same principle applies to the number nine, which is written as IX. There are six instances where subtraction is used:
 
-// I can be placed before V (5) and X (10) to make 4 and 9. 
-// X can be placed before L (50) and C (100) to make 40 and 90. 
+// I can be placed before V (5) and X (10) to make 4 and 9.
+// X can be placed before L (50) and C (100) to make 40 and 90.
 // C can be placed before D (500) and M (1000) to make 400 and 900.
 // Given a roman numeral, convert it to an integer.
 
@@ -35,5 +38,43 @@ package Solutions
 // Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
 
 func romanToInt(s string) int {
-    return 0
+	runes := []rune(s)
+	value := 0
+	previousValue := '0'
+
+	for i := len(runes) - 1; i >= 0 ; i-- {
+		if runes[i] == 'M' {
+			value += 1000
+		} else if runes[i] == 'D' {			
+			value += 500
+		} else if runes[i] == 'C' {
+			// C can be placed before D (500) and M (1000) to make 400 and 900.
+			if previousValue == 'D' || previousValue == 'M' {
+				value -= 100
+			} else {
+				value += 100
+			}
+		} else if runes[i] == 'L' {			
+			value += 50
+		} else if runes[i] == 'X' {
+			// X can be placed before L (50) and C (100) to make 40 and 90.
+			if previousValue == 'L' || previousValue == 'C' {
+				value -= 10
+			} else {
+				value += 10
+			}
+		} else if runes[i] == 'V' {
+			value += 5
+		} else if runes[i] == 'I' {			
+			// I can be placed before V (5) and X (10) to make 4 and 9.
+			if previousValue == 'V' || previousValue == 'X' {
+				value -= 1
+			} else {
+				value += 1
+			}
+		}
+		previousValue = runes[i]
+	}
+
+	return value
 }
