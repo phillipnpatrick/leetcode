@@ -21,7 +21,7 @@ func majorityElement(nums []int) int {
 		value int
 	}
 	myMap := make(map[int]int)
-	p := new(Pair)
+	var p *Pair = nil
 
 	for _, value := range nums {
 		myMap[value]++
@@ -30,6 +30,7 @@ func majorityElement(nums []int) int {
 	for key, value := range myMap {
 		fmt.Printf("Key %d, Value: %d\n", key, value)
 		if p == nil {
+			p = new(Pair)
 			p.key = key
 			p.value = value
 		} else if value > p.value {
