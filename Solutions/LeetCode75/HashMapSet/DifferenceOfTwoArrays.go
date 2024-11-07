@@ -20,7 +20,32 @@ package Solutions
 // Every integer in nums2 is present in nums1. Therefore, answer[1] = [].
 
 func findDifference(nums1 []int, nums2 []int) [][]int {
-    var diff [][]int
+	set1 := make(map[int]struct{})
+	set2 := make(map[int]struct{})
+	diff := [][]int{{}, {}}
+
+	for k := 0; k < len(nums1); k++ {
+		set1[nums1[k]] = struct{}{}
+	}
+
+	for j := 0; j < len(nums2); j++ {
+		set2[nums2[j]] = struct{}{}
+	}
+
+	for key := range set1 {
+		if _, exists := set2[key]; exists {
+			delete(set1, key)
+			delete(set2, key)
+		}		
+	}
+
+	for key := range set1 {
+		diff[0] = append(diff[0], key)
+	}
+
+	for key := range set2 {
+		diff[1] = append(diff[1], key)
+	}
 
 	return diff
 }
