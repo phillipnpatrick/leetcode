@@ -1,5 +1,10 @@
 package Solutions
 
+import (
+	"strconv"
+	"strings"
+)
+
 // Given an integer n, return an array ans of length n + 1 such that for each i (0 <= i <= n), ans[i] is the number of 1's in the binary representation of i.
 
 // Example 1:
@@ -23,5 +28,14 @@ package Solutions
 
 func countBits(n int) []int {
 	result := []int{}
+
+	for i := int64(0); i <= int64(n); i++ {
+		binary := strconv.FormatInt(i, 2)
+	
+		ones := strings.Count(binary, "1")
+
+		result = append(result, ones)
+	}
+
     return result
 }
