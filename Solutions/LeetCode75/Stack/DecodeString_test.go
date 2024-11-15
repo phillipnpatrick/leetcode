@@ -38,6 +38,20 @@ func Test_decodeString(t *testing.T) {
 			},
 			want: "abcabccdcdcdef",
 		},
+		{
+			name: "test04",
+			args: args{
+				s: "3[a2[c7[phillip]]4[efg]mno",
+			},
+			want: "acphillipphillipphillipphillipphillipphillipphillipcphillipphillipphillipphillipphillipphillipphillipacphillipphillipphillipphillipphillipphillipphillipcphillipphillipphillipphillipphillipphillipphillipacphillipphillipphillipphillipphillipphillipphillipcphillipphillipphillipphillipphillipphillipphillipefgefgefgefgmno",
+		},
+		{
+			name: "test05",
+			args: args{
+				s: "3[z]2[2[y]pq4[2[jk]e1[f]]]ef",
+			},
+			want: "zzzyypqjkjkefjkjkefjkjkefjkjkefyypqjkjkefjkjkefjkjkefjkjkefef",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
