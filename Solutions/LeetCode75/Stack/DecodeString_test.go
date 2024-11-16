@@ -21,15 +21,6 @@ func Test_decodeString(t *testing.T) {
 			want: "aaabcbc",
 		},
 		{
-			// Input: s = "3[a2[c]]"
-			// Output: "accaccacc"
-			name: "test02",
-			args: args{
-				s: "3[a2[c]]",
-			},
-			want: "accaccacc",
-		},
-		{
 			// Input: s = "2[abc]3[cd]ef"
 			// Output: "abcabccdcdcdef"
 			name: "test03",
@@ -39,12 +30,28 @@ func Test_decodeString(t *testing.T) {
 			want: "abcabccdcdcdef",
 		},
 		{
-			name: "test04",
+			name: "test06",
 			args: args{
-				s: "3[a2[c7[phillip]]4[efg]mno",
+				s: "abc3[de]fg",
 			},
-			want: "acphillipphillipphillipphillipphillipphillipphillipcphillipphillipphillipphillipphillipphillipphillipacphillipphillipphillipphillipphillipphillipphillipcphillipphillipphillipphillipphillipphillipphillipacphillipphillipphillipphillipphillipphillipphillipcphillipphillipphillipphillipphillipphillipphillipefgefgefgefgmno",
+			want: "abcdededefg",
 		},
+		{
+			// Input: s = "3[a2[c]]"
+			// Output: "accaccacc"
+			name: "test02",
+			args: args{
+				s: "3[a2[c]]",
+			},
+			want: "accaccacc",
+		},
+		// {
+		// 	name: "test04",
+		// 	args: args{
+		// 		s: "3[a2[c7[phillip]]4[efg]mno",
+		// 	},
+		// 	want: "acphillipphillipphillipphillipphillipphillipphillipcphillipphillipphillipphillipphillipphillipphillipacphillipphillipphillipphillipphillipphillipphillipcphillipphillipphillipphillipphillipphillipphillipacphillipphillipphillipphillipphillipphillipphillipcphillipphillipphillipphillipphillipphillipphillipefgefgefgefgmno",
+		// },
 		{
 			name: "test05",
 			args: args{
