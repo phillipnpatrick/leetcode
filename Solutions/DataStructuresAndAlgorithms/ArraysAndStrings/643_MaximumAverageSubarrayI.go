@@ -2,9 +2,11 @@ package Solutions
 
 import "math"
 
+// https://leetcode.com/problems/maximum-average-subarray-i/description/
+
 // You are given an integer array nums consisting of n elements, and an integer k.
 // Find a contiguous subarray whose length is equal to k that has the maximum average value and return this value.
-// Any answer with a calculation error less than 10^(-5) will be accepted.
+// Any answer with a calculation error less than 10-5 will be accepted.
 
 // Example 1:
 // Input: nums = [1,12,-5,-6,50,3], k = 4
@@ -16,21 +18,22 @@ import "math"
 // Output: 5.00000
 
 func findMaxAverage(nums []int, k int) float64 {
-	maxAverage := -math.MaxFloat64
-	sum := float64(0)
+	var avg float64
+	left, right, sum := 0, 0, 0
 
-	for i := 0; i <= len(nums)-k; i++ {
-		if i == 0 {
-			for j := i; j-i < k; j++ {
-				sum += float64(nums[j])
-			}
-		} else {
-			sum -= float64(nums[i-1])
-			sum += float64(nums[i+k-1])
-		}
-		average := float64(sum / float64(k))
-		maxAverage = math.Max(average, maxAverage)
+	for right < k {
+		sum += nums[right]
+		right++
 	}
 
-	return maxAverage
+	avg = float64(sum)/float64(k)
+	
+	for right < len(nums) {
+		sum += nums[right] - nums[left]
+		avg = math.Max(avg, float64(sum)/float64(k))
+		right++
+		left++
+	}
+
+	return avg
 }

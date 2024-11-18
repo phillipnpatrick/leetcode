@@ -6,6 +6,8 @@ import (
 	"strings"
 )
 
+// https://leetcode.com/problems/removing-stars-from-a-string/description/?envType=study-plan-v2&envId=leetcode-75
+
 // You are given a string s, which contains stars *.
 // In one operation, you can:
 // Choose a star in s.

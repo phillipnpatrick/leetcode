@@ -1,5 +1,7 @@
 package Solutions
 
+// https://leetcode.com/problems/number-of-recent-calls/description/?envType=study-plan-v2&envId=leetcode-75
+
 // You have a RecentCounter class which counts the number of recent requests within a certain time frame.
 // Implement the RecentCounter class:
 // RecentCounter() Initializes the counter with zero recent requests.

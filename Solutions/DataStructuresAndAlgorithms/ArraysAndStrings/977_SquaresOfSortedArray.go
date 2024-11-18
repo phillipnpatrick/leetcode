@@ -2,6 +2,8 @@ package Solutions
 
 import "math"
 
+// https://leetcode.com/problems/squares-of-a-sorted-array/description/
+
 // nums = [-4,-1,0,3,10] ==> [0,1,9,16,100]
 // nums = [-7,-3,2,3,11] ==> [4,9,9,49,121]
 // nums: []int{-4,-1,0,3,5,6,7,8,9,10}  ==> [0,1,9,16,25,36,49,64,81,100]

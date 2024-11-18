@@ -2,6 +2,8 @@ package Solutions
 
 import "math"
 
+// https://leetcode.com/problems/asteroid-collision/description/?envType=study-plan-v2&envId=leetcode-75
+
 // We are given an array asteroids of integers representing asteroids in a row.
 // For each asteroid, the absolute value represents its size, and the sign represents its direction (positive meaning right, negative meaning left).
 // Each asteroid moves at the same speed.
