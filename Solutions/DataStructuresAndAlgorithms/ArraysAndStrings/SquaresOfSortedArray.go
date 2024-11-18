@@ -1,10 +1,35 @@
 package Solutions
 
+import "math"
+
 // nums = [-4,-1,0,3,10] ==> [0,1,9,16,100]
 // nums = [-7,-3,2,3,11] ==> [4,9,9,49,121]
 // nums: []int{-4,-1,0,3,5,6,7,8,9,10}  ==> [0,1,9,16,25,36,49,64,81,100]
 // nums: []int{-5,-4,-3,-2,-1,0,1}, ==> []int{0,1,1,4,9,16,25},
+
 func sortedSquares(nums []int) []int {
+	n := len(nums)
+	result := make([]int, n)
+	left := 0
+	right := n - 1
+
+	for i := n - 1; i >= 0; i-- {
+		var square int
+		a := nums[left]
+		b := nums[right]
+		if math.Abs(float64(a)) < math.Abs(float64(b)) {
+			square = nums[right]
+			right--
+		} else {
+			square = nums[left]
+			left++
+		}
+		result[i] = square * square
+	}
+	return result
+}
+
+func mySortedSquares(nums []int) []int {
     ans := []int{}
     a := 0
     b := 1
