@@ -31,9 +31,26 @@ import (
 
 // [1,1,1,0,0,0,1,1,1,1,0,1], k=2; output: 7
 func longestOnes(nums []int, k int) int {
-	// return mySolution(nums, k)
+	max := math.MinInt
+	left, right, flipped := 0, 0, 0
 
-	return fastSolution(nums, k)
+	for right < len(nums) {
+		if nums[right] == 0 {
+			flipped++
+		}
+
+		for flipped > k {
+			if nums[left] == 0 {
+				flipped--
+			}
+			left++
+		}
+
+		max = int(math.Max(float64(max), float64(right-left+1)))
+		right++
+	}
+
+	return max
 }
 
 func mySolution(nums []int, k int) int {
