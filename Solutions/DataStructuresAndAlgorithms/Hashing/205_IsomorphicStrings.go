@@ -1,7 +1,6 @@
 package Solutions
 
-import "strings"
-
+// https://leetcode.com/problems/isomorphic-strings/description/
 // Given two strings s and t, determine if they are isomorphic.
 // Two strings s and t are isomorphic if the characters in s can be replaced to get t.
 // All occurrences of a character must be replaced with another character while preserving the order of characters.
@@ -26,28 +25,22 @@ import "strings"
 // Output: true
 
 func isIsomorphic(s string, t string) bool {
-	mapTtoS := make(map[string]string)
-	mapStoT := make(map[string]string)
-
-	for i, j := 0, 0; i < len(s) && j < len(t); i, j = i+1, j+1 {
-		mapTtoS[string(t[i])] = string(s[j])
-		mapStoT[string(s[j])] = string(t[i])
+	if len(s) != len(t) {
+		return false
 	}
-	
-	newS := replace(s, mapStoT)
-	newT := replace(t, mapTtoS)
 
-	return s == newT && t == newS
-}
+	s_t := make(map[byte]byte)
+	t_s := make(map[byte]byte)
 
-func replace(s string, isoMap map[string]string) string {
-	var output strings.Builder
-	for k := 0; k < len(s); k++ {
-		value, exists := isoMap[string(s[k])]
-		if exists {
-			output.WriteString(value)
+	for index := 0; index < len(s); index++ {
+		stValue, stExists := s_t[s[index]]
+		tsValue, tsExists := t_s[t[index]]
+		if (stExists && stValue != t[index]) || (tsExists && tsValue != s[index]) {
+			return false
 		}
+		s_t[s[index]] = t[index]
+		t_s[t[index]] = s[index]
 	}
 
-	return output.String()
+	return true
 }

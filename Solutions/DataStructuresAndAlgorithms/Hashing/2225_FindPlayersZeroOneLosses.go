@@ -202,7 +202,7 @@ func findWinners1(matches [][]int) [][]int {
 
 	// Check for players with one loss
 	ans[1] = []int{}
-	for key, value := range losses {
+	for key, value := range losses { 
 		if value == 1 {
 			ans[1] = append(ans[1], key)
 		}
