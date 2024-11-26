@@ -42,6 +42,30 @@ func Test_closeStrings(t *testing.T) {
 			},
 			want: true,
 		},
+		{
+			name: "test04",
+			args: args{
+				word1: "abcde",
+				word2: "aecdb",
+			},
+			want: true,
+		},
+		{
+			name: "test05",
+			args: args{
+				word1: "aacabb",
+				word2: "bbcbaa",
+			},
+			want: true,
+		},
+		{
+			name: "test06",
+			args: args{
+				word1: "uau",
+				word2: "ssx",
+			},
+			want: false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
