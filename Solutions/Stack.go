@@ -54,12 +54,16 @@ func (s *Stack[T]) Size() int {
 func (s *Stack[T]) String() string {
 	var sb strings.Builder
 	// sb.WriteString("Stack: [")
-	for i, item := range s.items {
-		if i > 0 {
-			sb.WriteString(", ")
-		}
+	// for i, item := range s.items {
+		// if i > 0 {
+		// 	sb.WriteString(", ")
+		// }
+	// 	sb.WriteString(fmt.Sprintf("%v", item))
+	// }
+	// sb.WriteString("]")
+
+	for _, item := range s.items {
 		sb.WriteString(fmt.Sprintf("%v", item))
 	}
-	// sb.WriteString("]")
 	return sb.String()
 }
