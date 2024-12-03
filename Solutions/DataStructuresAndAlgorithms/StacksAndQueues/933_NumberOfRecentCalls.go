@@ -1,6 +1,6 @@
 package Solutions
 
-// https://leetcode.com/problems/number-of-recent-calls/description/?envType=study-plan-v2&envId=leetcode-75
+// https://leetcode.com/problems/number-of-recent-calls/description/
 
 // You have a RecentCounter class which counts the number of recent requests within a certain time frame.
 // Implement the RecentCounter class:
@@ -24,19 +24,24 @@ package Solutions
 // recentCounter.ping(3001);  // requests = [1, 100, 3001], range is [1,3001], return 3
 // recentCounter.ping(3002);  // requests = [1, 100, 3001, 3002], range is [2,3002], return 3
 
-// type RecentCounter struct {
-    
-// }
+type RecentCounter struct {
+    queue []int
+}
 
 
-// func Constructor() RecentCounter {
-    
-// }
+func Constructor() RecentCounter {
+    return RecentCounter{queue: []int{}}
+}
 
 
-// func (this *RecentCounter) Ping(t int) int {
-    
-// }
+func (this *RecentCounter) Ping(t int) int {
+	for len(this.queue) > 0 && this.queue[0] < t - 3000 {
+		this.queue = this.queue[1:]
+	}
+
+	this.queue = append(this.queue, t)
+	return len(this.queue)
+}
 
 
 /**
