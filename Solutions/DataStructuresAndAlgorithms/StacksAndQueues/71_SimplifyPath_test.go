@@ -56,6 +56,27 @@ func Test_simplifyPath(t *testing.T) {
 			},
 			want: "/.../b/d",
 		},
+		{
+			name: "test06",
+			args: args{
+				path: "/a/../../b/../c//.//",
+			},
+			want: "/c",
+		},
+		{
+			name: "test07",
+			args: args{
+				path: `/a//b////c/d//././/..`,
+			},
+			want: "/a/b/c",
+		},
+		{
+			name: "test08",
+			args: args{
+				path: `/..hidden`,
+			},
+			want: "/..hidden",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

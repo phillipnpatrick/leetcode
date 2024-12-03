@@ -1,7 +1,6 @@
 package Solutions
 
 import (
-	"fmt"
 	"strings"
 )
 
@@ -53,61 +52,47 @@ func simplifyPath(path string) string {
 	for i := 0; i < len(thePath); i++ {
 		c := thePath[i]
 
-		if i == 0 && c == '/' {
-			stack = append(stack, string(c))
-			print(stack)
+		if c != '/' {
+			directory.WriteRune(c)
 		} else {
-			if c != '/' {
-				directory.WriteRune(c)
-			} else {
-				if strings.Count(directory.String(), ".") == 1 {
-					directory.Reset()
-					print(stack)
-				} else if strings.Count(directory.String(), ".") == 2 {
-					if asString(stack) != "/" {
-						stack = stack[:len(stack)-1]
-					}
-					directory.Reset()
-					print(stack)
-				} else {
-					stack = append(stack, directory.String())
-					directory.Reset()
-					print(stack)
-				}
-
-				peek := stack[len(stack)-1]
-				if c == '/' && i < len(path)-1 {
-					if peek != "/" {
-						directory.WriteRune(c)
-					}
-				}
-			}
+			directory, stack = updateStack(directory, stack)
 		}
 	}
 
 	if directory.Len() > 0 {
-		stack = append(stack, directory.String())
+		_, stack = updateStack(directory, stack)
 	}
 
 	s := asString(stack)
-	fmt.Printf("final: len(s): %d \t s: '%s' \n", len(s), s)
 
 	return s
 }
 
-func print(stack []string) {
-	for i := 0; i < len(stack); i++ {
-		fmt.Printf("%s", stack[i])
+func updateStack(directory strings.Builder, stack []string) (strings.Builder, []string) {
+	if directory.String() == "." {
+		directory.Reset()
+	} else if directory.String() == ".." {
+		stack = stack[:len(stack)-1]
+		directory.Reset()
+	} else if directory.Len() > 0 {
+		stack = append(stack, directory.String())
+		directory.Reset()
 	}
-	fmt.Println()
+
+	return directory, stack
 }
 
 func asString(stack []string) string {
 	var sb strings.Builder
 	for i := 0; i < len(stack); i++ {
 		if stack[i] != "" {
+			sb.WriteString("/")
 			sb.WriteString(stack[i])
 		}
+	}
+
+	if sb.Len() == 0 {
+		return "/"
 	}
 
 	return sb.String()
