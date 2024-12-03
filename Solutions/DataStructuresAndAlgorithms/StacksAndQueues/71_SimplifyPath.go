@@ -1,7 +1,12 @@
 package Solutions
 
+import (
+	"fmt"
+	"strings"
+)
+
 // https://leetcode.com/problems/simplify-path/description/
-// You are given an absolute path for a Unix-style file system, which always begins with a slash '/'. 
+// You are given an absolute path for a Unix-style file system, which always begins with a slash '/'.
 // Your task is to transform this absolute path into its simplified canonical path.
 // The rules of a Unix-style file system are as follows:
 // 	A single period '.' represents the current directory.
@@ -41,5 +46,69 @@ package Solutions
 // Explanation: "..." is a valid name for a directory in this problem.
 
 func simplifyPath(path string) string {
-    return ""
+	stack := make([]string, len(path))
+	var directory strings.Builder
+	thePath := []rune(path)
+
+	for i := 0; i < len(thePath); i++ {
+		c := thePath[i]
+
+		if i == 0 && c == '/' {
+			stack = append(stack, string(c))
+			print(stack)
+		} else {
+			if c != '/' {
+				directory.WriteRune(c)
+			} else {
+				if strings.Count(directory.String(), ".") == 1 {
+					directory.Reset()
+					print(stack)
+				} else if strings.Count(directory.String(), ".") == 2 {
+					if asString(stack) != "/" {
+						stack = stack[:len(stack)-1]
+					}
+					directory.Reset()
+					print(stack)
+				} else {
+					stack = append(stack, directory.String())
+					directory.Reset()
+					print(stack)
+				}
+
+				peek := stack[len(stack)-1]
+				if c == '/' && i < len(path)-1 {
+					if peek != "/" {
+						directory.WriteRune(c)
+					}
+				}
+			}
+		}
+	}
+
+	if directory.Len() > 0 {
+		stack = append(stack, directory.String())
+	}
+
+	s := asString(stack)
+	fmt.Printf("final: len(s): %d \t s: '%s' \n", len(s), s)
+
+	return s
+}
+
+func print(stack []string) {
+	for i := 0; i < len(stack); i++ {
+		fmt.Printf("%s", stack[i])
+	}
+	fmt.Println()
+}
+
+func asString(stack []string) string {
+	var sb strings.Builder
+	for i := 0; i < len(stack); i++ {
+		if stack[i] != "" {
+			sb.WriteString(stack[i])
+		}
+	}
+
+	return sb.String()
 }
